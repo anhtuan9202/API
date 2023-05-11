@@ -1,0 +1,43 @@
+﻿@model List<BTLAPI.Models.Order>
+@using BTLAPI.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Hóa đơn</h2>
+    
+<table class="table productsTable">
+    <tr>
+        <th>Mã hóa đơn</th>
+        <th>Tên khách hàng</th>
+        <th>Ngày</th>
+        <th>Tổng tiền</th>
+        <th>Trạng thái</th> 
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td><a href="@Url.Action("Index","OrderDetail",new {OrderID = item.OrderID})">@item.OrderID</a></td>
+            <td>@item.User.FullName</td>
+            <td>@item.Date</td>
+            <td>@item.Total</td>
+            @if (item.Status == 1)
+            {
+                <td>Đã thanh toán</td>
+            }
+            else
+            {
+                <td>Đặt hàng</td>
+            }
+
+
+        </tr>
+    }
+</table>
+
+
+
+
+
+

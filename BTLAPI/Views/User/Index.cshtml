@@ -1,0 +1,51 @@
+﻿@model List<BTLAPI.Models.User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Tài khoản</h2>
+
+<a href="/user/create" class="btn btn-primary">Thêm tài khoản</a>
+
+<form method="get" class="form-inline my-2 my-lg-0" action="@Url.Action("Index")">
+    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm" value="@ViewBag.Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Mã tài khoản</th>
+            <th scope="col">Họ và tên</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mật khẩu</th>
+            <th scope="col">Admin</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserID</td>
+                    <td>@user.FullName</td>
+                    <td>@user.Email</td>
+                    <td>@user.Password</td>
+                    <td>@(user.isAdmin ? "Có" : "Không")</td>
+                    <td>
+                        <a href="/user/edit/@user.UserID">Edit</a>
+                        <a href="/user/delete/@user.UserID">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Không tìm thấy người dùng nào</td>
+            </tr>
+        }
+    </tbody>
+</table>

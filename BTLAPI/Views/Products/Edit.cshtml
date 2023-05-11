@@ -1,0 +1,70 @@
+﻿@model BTLAPI.Models.Product
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Sửa sản phẩm</h2>
+
+
+<form action="/products/edit/@Model.ProductID" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ProductId" value="@Model.ProductID" />
+    <div class="row">
+        <div class="col-md-6">
+            <label for="ProductName">Tên sản phẩm</label>
+            <input type="text" class="form-control" id="ProductName" name="ProductName" placeholder="Product Name" value="@Model.ProductName" />
+        </div>
+        <div class="col-md-6">
+            <label for="Price">Giá</label>
+            <input type="text" class="form-control" id="Price" name="Price" placeholder="Price" value="@(Model.Price?.ToString("N0") ?? "0") VNĐ" />
+        </div>
+        <div class="col-md-6">
+            <label for="BrandID">Hãng</label>
+            <select class="form-control" id="BrandID" name="BrandID">
+                @foreach (var cat in ViewBag.Brands)
+                {
+                    if (cat.BrandID == Model.BrandID)
+                    {
+                        <option value="@cat.BrandID" selected>@cat.BrandName</option>
+                    }
+                    else
+                    {
+                        <option value="@cat.BrandID">@cat.BrandName</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="Price">Mô tả</label>
+            <input type="text" class="form-control" id="Description" name="Description" placeholder="Description" value="@Model.Description" />
+        </div>
+        @*<div class="col-md-6">
+            <label for="Price">Số lượng</label>
+            <input type="text" class="form-control" id="Quantity" name="Quantity" placeholder="Quantity" value="@Model.Quantity" />
+        </div>*@
+        <div class="form">
+            <label for="Price">Ảnh</label>
+            <img id="ProductImage" src='~/Images/@Model.Image' alt='Product Image' width='100' height='100'>
+
+            @Html.TextBox("ImageUpLoad", "", new { type = "file", id = "ImageUpLoad" })
+
+            @Html.Hidden("Image");
+        </div>
+
+
+
+    </div>
+    <button type="submit" class="btn btn-success btnCreate">Save</button>
+    <a href="/products" class="btn btn-danger">Cancel</a>
+</form>
+<script>
+    $(function() {
+        $('#ImageUpLoad').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            if (fileName !== '') {
+                $('#Image').val(fileName);
+                $('#ProductImage').attr('src', URL.createObjectURL(event.target.files[0]));
+            }
+        });
+    });
+</script>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<BTLAPI.Models.OrderDetail>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Chi tiết hóa đơn</h2>
+
+@foreach (var m in ViewBag.Main)
+{
+    <h3>Mã hóa đơn: @m.order.OrderID</h3>
+    <h3>Tên khách hàng: @(m.user != null ? m.user.FullName : "Unknown")</h3>
+
+}
+<table class="table table-striped">
+    <tr>
+        <th>Số TT</th>
+        <th>Tên sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Đơn giá</th>
+        <th>Thành tiền</th>
+    </tr>
+    @{
+        double total = 0;
+        int i = 0;
+        foreach (var item in ViewBag.Sub)
+        {
+            i++;
+            total += (Convert.ToDouble(item.orderDetail.Quantity) * ((Convert.ToDouble(item.orderDetail.Price))));
+            <tr>
+                <td>@i</td>
+                <td>@item.product.ProductName</td>
+                <td>@item.orderDetail.Quantity</td>
+                <td>@String.Format("{0:0,##0}", item.orderDetail.Price)</td>
+                <td>@String.Format("{0:0,##0}", item.Total)</td>
+            </tr>
+        }
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Tổng tiền: </th>
+            <th><text>@String.Format("{0:0,##0}", total)</text></th>
+        </tr>
+    }
+</table>

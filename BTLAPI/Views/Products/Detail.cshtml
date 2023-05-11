@@ -1,0 +1,46 @@
+﻿@model BTLAPI.Models.Product
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Chi tiết sản phẩm</h2>
+<table class="table">
+    <tr>
+        <th>Mã sản phẩm</th>
+        <td>@Model.ProductID </td>
+    </tr>
+    <tr>
+        <th>Tên sản phẩm</th>
+        <td>@Model.ProductName </td>
+    </tr>
+    <tr>
+        <th>Giá</th>
+        <td>@(Model.Price?.ToString("N0") ?? "0") VNĐ</td>
+    </tr>
+    <tr>
+        <th>Hãng</th>
+        <td>@Model.Brand.BrandName </td>
+    </tr>
+    <tr>
+        <th>Mô tả</th>
+        <td>@Model.Description </td>
+    </tr>
+    <tr>
+        <th>Ảnh</th>
+        <td><img src='~/Images/@Model.Image' alt='Product Image' width='200' height='200'> </td>
+    </tr>
+    
+
+
+
+
+</table>
+<dd>
+    <br />
+    <a class="btn btn-success btn-sm" href="@Url.Action("AddToCart","Cart",new {ProductID = Model.ProductID})"><span class="glyphicon glyphicon-shopping-cart"></span>Thêm vào giỏ</a>
+    <a class="btn btn-success btn-sm" href="@Url.Action("Index","Home",new {ProductID = Model.ProductID})">Quay lại</a>
+
+</dd>
+
+

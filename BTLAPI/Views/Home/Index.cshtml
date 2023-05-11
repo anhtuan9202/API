@@ -1,0 +1,26 @@
+﻿@model List<BTLAPI.Models.Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Trang chủ</h2>
+
+
+<div class="row">
+    @foreach(var item in Model) {
+        <div class="col-sm-3" style="margin-top:5px;text-align:center">
+            <h3>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </h3>
+            <img src='~/Images/@item.Image' alt='Product Image' width='100' height='100'>
+            @Html.DisplayFor(modelItem => item.Price)
+
+
+            <a class="btn btn-info btn-sm" href="@Url.Action("Detail","Products",new {id = item.ProductID})">
+                Xem chi tiết
+            </a>
+        </div>
+    }
+</div>
+

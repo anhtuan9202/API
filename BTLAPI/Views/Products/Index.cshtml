@@ -1,0 +1,58 @@
+﻿@model List<BTLAPI.Models.Product>
+@using BTLAPI.Models; 
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Sản phẩm</h2>
+<a href="/products/create">Thêm sản phẩm mới</a>
+<form class="d-flex flex-row align-items-center flex-wrap" action="/products/index"> 
+    <label for="search" class="mx-2 my-1">Search</label> 
+    <input type="search" class="form-control w-auto" id="search" name="search" value="@ViewBag.Search" placeholder="Search" />
+    <button type="submit" class="btn btn-primary mx-2">GO</button> 
+</form>
+
+@{ 
+    string iconClass = "";
+    if(ViewBag.IconClass == "fa-sort-desc")
+    {
+        iconClass = "fa-sort-asc";
+    }
+    else {
+        iconClass = "fa-sort-desc";
+    }
+}
+
+<table class="table productsTable">
+    <tr>
+        <th>Mã sản phẩm</th>
+        <th>Tên sản phẩm</th>
+        <th>Giá</th>
+        <th>Hãng</th>
+        <th>Mô tả</th>
+        <th>Ảnh</th> 
+    </tr>
+    @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductID</td>
+                    <td><a href="/products/detail/@item.ProductID">@item.ProductName</a></td>
+                    <td>@(item.Price?.ToString("N0") ?? "0") VNĐ</td>
+                    <td>@(item.Brand?.BrandName)</td>
+                    <td>@item.Description</td>   
+                    <td><img src='~/Images/@item.Image' alt='Product Image' width='100' height='100'></td>
+                    <td>
+                        <a href="/products/edit/@item.ProductID">Edit</a>
+                        <a href="/products/delete/@item.ProductID">Delete</a>
+                    </td>
+
+                </tr>
+            }
+</table>
+
+
+
+
+
+

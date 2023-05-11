@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery-3.6.4.min.js"></script>
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-success navbar-dark">
+        <a class="navbar-brand" href="#">Mobile Mart</a>
+        <div class="col-8">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/index">Trang chủ </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cart/index">Giỏ hàng </a>
+                </li>
+                @if (Session["IsAdmin"] != null)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products/index">Sản phẩm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/brand/index">Hãng</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/order/index">Hóa đơn</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/index">Tài khoản </a>
+                    </li>
+                }
+
+
+</div>
+        @if (Session["UserID"] != null)
+        {
+            <div style="color:red;font-weight:bold">
+                Hello @Session["FullName"]
+            </div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/Logout">Đăng xuất</a>
+                </li>
+            </ul>
+        }
+        else
+        {
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/Login">Đăng nhập</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/Register">Đăng kí</a>
+                </li>
+            </ul>
+        }
+
+
+        </ul>
+    </nav>
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+</body>
+</html>

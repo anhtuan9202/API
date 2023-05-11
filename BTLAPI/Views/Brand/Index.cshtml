@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Hãng</h2>
+<a href="#">Thêm hãng</a>
+<form class="d-flex flex-row align-items-center flex-wrap" action="/products/index">
+    <label for="search" class="mx-2 my-1">Search</label>
+    <input type="search" class="form-control w-auto" id="search" name="search" value="@ViewBag.Search" placeholder="Search" />
+    <button type="submit" class="btn btn-primary mx-2">GO</button>
+</form>
+
+
+
+<table class="table brandTable"
+       <tr>
+           <th>Mã hãng</th>
+           <th>Tên hãng</th>
+       </tr>
+        @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.BrandID</td>
+                    <td>@item.BrandName</td>
+                    <td>
+                        <a href="#">Edit</a>
+                        <a href="#">Delete</a>
+                    </td>
+                </tr>
+                
+            }
+</table>
+@*<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Chi tiết thương hiệu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <tr>
+                            <td>Mã thương hiệu</td>
+                            <td><span id="BrandIDSpan"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Tên thương hiệu</td>
+                            <td><span id="BrandNameSpan"></span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            getAllBrands();
+        });
+        function getAllBrands() {
+            $.ajax({
+                type: 'GET',
+                url: '/api/brands',
+                success: (responses) => {
+                    for (var i = 0; i <= responses.length; i++) {
+                        const brandRow = responses[i];
+                        const strHtml = '<tr><td>' + brandRow.BrandID + '</td><td>'
+                            + brandRow.BrandName + '</td><td><td><button type="button" class="btn btn-primary btnViewBrand" data-toggle="modal" data-target="#exampleModal" data-brandid="' + brandRow.BrandID + '" >Chi Tiết</button ><tr>';
+                        $('.brandTable').append(strHtml);
+                    }
+                },
+                error: (err) => { console.log(err); }
+            });
+        }
+        $(document).on('click', '.btnViewBrand', (event) => {
+            const brid = $(event.target).attr('data-brandid');
+            $.ajax({
+                type: 'GET',
+                url: `/api/brands?id=${brid}`,
+                success: (response) => {
+                    $('#BrandIDSpan').html(response.BrandID);
+                    $('#BrandNameSpan').html(response.BrandName);
+                },
+                error: (err) => { console.log(err) }
+            });
+        });
+    </script>*@

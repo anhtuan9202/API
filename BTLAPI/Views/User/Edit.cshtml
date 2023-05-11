@@ -1,0 +1,35 @@
+﻿@model BTLAPI.Models.User
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Sửa tài khoản</h2>
+
+
+<form action="/user/edit/@Model.UserID" method="post">
+    <input type="hidden" name="UserID" value="@Model.UserID" />
+    <div class="row">
+        <div class="col-md-6">
+            <label for="FullName">Họ và tên</label>
+            <input type="text" class="form-control" id=FullName" name="FullName" placeholder="FullName" value="@Model.FullName" />
+        </div>
+        <div class="col-md-6">
+            <label for="Email">Email</label>
+            <input type="text" class="form-control" id="Email" name="Email" placeholder="Email" value="@Model.Email" />
+        </div>
+        <div class="col-md-6">
+            <label for="Password">Mật khẩu</label>
+            <input type="text" class="form-control" id="Password" name="Password" placeholder="Password" value="@Model.Password" />
+        </div>
+        <div class="row">
+            <div class="mx-3 form-check">
+                <input class="form-check-input" type="checkbox" id="isAdmin" name="isAdmin" value="true" @(Model.isAdmin ? "checked" : "") />
+                <label class="form-check-label" for="isAdmin">Admin</label>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success btnCreate">Save</button>
+    <a href="/user" class="btn btn-danger">Cancel</a>
+</form>
+

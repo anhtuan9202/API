@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Thêm sản phẩm</h2>
+<form action="/products/create" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <label for="ProductName">Tên sản phẩm</label>
+            <input type="text" class="form-control" id="ProductName" name="ProductName" placeholder="Product Name" />
+        </div>
+        <div class="col-md-6">
+            <label for="Price">Giá</label>
+            <input type="text" class="form-control" id="Price" name="Price" placeholder="Price" />
+        </div>
+        <div class="col-md-6">
+            <label for="BrandID">Hãng</label>
+            <select class="form-control" id="BrandID" name="BrandID">
+                <option value="">Chọn...</option>
+                @foreach (var cat in ViewBag.Brands)
+                {
+                    <option value="@cat.BrandID">@cat.BrandName</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="Price">Mô tả</label>
+            <input type="text" class="form-control" id="Description" name="Description" placeholder="Description" />
+        </div>
+        <div class="form">
+            <label for="Price">Ảnh</label>
+            @Html.TextBox("Image","", new {type="file"})
+
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success btnCreate">Create</button>
+    <a href="/products"class="btn btn-danger">Cancel</a>
+</form>
+@*<script>
+    $('.btnCreate').click(() => {
+        const productName = $('#ProductName').val();
+        const price = $('#Price').val();
+        const date = $('#Date').val();
+        const status = $('#Status').val();
+        const categoryId = $('#CategoryID').val();
+        const brandId = $('#BrandID').val();
+        const active = $('#Active').is(':checked');
+        $.ajax({
+            type: 'POST',
+            url: '/api/products',
+            data: {
+                'ProductName': productName,
+                'Price': price,
+                'Date': date,
+                'Status': status,
+                'CategoryID': categoryId,
+                'BrandID': brandId,
+                'Active': active,
+            },
+            success: () => {
+                alert("Thêm mới thành công");
+                window.location.href = "/products";
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+    });
+</script>*@
